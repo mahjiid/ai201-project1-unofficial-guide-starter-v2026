@@ -57,41 +57,17 @@ in at least 4 of 5 tries.
 
 ## 4. Something about your chunks
 
-<!-- YOU WRITE THIS ONE.
-
-     How would you know if your chunks were the right size? Name something
-     countable or observable.
-
-     Examples of the right shape — don't copy these, they should come from
-     what you actually saw in Milestone 3:
-       - "At least 4 of 5 sampled chunks read as a complete thought, with no
-          sentence cut in half at either end."
-       - "No chunk is shorter than 200 characters, since anything below that
-          in my corpus turned out to be a heading with no content under it." -->
-
-
+At least 4 of 5 sampled chunks should form a complete, understandable piece of information without cutting a sentence or separating related paragraphs.
 
 **Why this target:**
-
-
-
----
+My corpus contains short documents that are naturally organized into paragraphs, and I found that keeping related paragraphs together preserved important context. I chose 4 of 5 because a small number of chunks may still be difficult to make completely self-contained while keeping the chunks reasonably sized.
 
 ## 5. Your choice
 
-<!-- YOU WRITE THIS ONE TOO.
-
-     Pick something you actually care about getting right. It could be about
-     speed, about refusals, about a particular kind of question your corpus
-     handles badly, about source attribution being correct rather than merely
-     present — anything, as long as it names a number or an observable
-     outcome. -->
-
-
+For at least 4 of my 5 test questions, the final answer should identify the specific source document that supports the answer.
 
 **Why this target:**
-
-
+The purpose of the system is to answer questions from my campus-life corpus rather than generate unsupported information. Requiring the source document makes the answers easier to verify and helps me detect cases where the system retrieves information but does not properly ground its response.
 
 ---
 
