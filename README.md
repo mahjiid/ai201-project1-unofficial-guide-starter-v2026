@@ -82,6 +82,11 @@ Starter baseline: 26 chunks total
 Source: thread_bike_commute.txt#0
 Produced by: chunker.py::fallback_split
 
+Custom campus_life chunking:
+90 chunks total
+Strategy: paragraph-aware grouping with a 500-character context limit
+Produced by: chunker.py::split_documents
+
 ## Sample Answer
 
 <!-- One complete question and answer, pasted as text, with the source line
