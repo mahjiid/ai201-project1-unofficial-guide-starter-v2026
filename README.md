@@ -1,6 +1,6 @@
 # The Unofficial Guide
 
-<!-- Replace this line with your name and which corpus you picked. -->
+**Abdulrasheed Abdulmajeed — Corpus: campus_life**
 
 > **This file is your submission.** Fill it in as you go — most sections get
 > written during the milestone that produces them, not at the end.
@@ -21,98 +21,110 @@
 
 ## What This Does
 
-<!-- Three or four sentences. Which corpus you picked, and the kinds of
-     questions your system answers. Write it for someone who has never seen
-     this repo.
+This project builds a question-answering system over a campus-life corpus containing information about courses, housing, dining, registration, and other student experiences. The system loads and cleans the documents, splits them into meaningful chunks, creates embeddings, and stores those embeddings for similarity search. When a user asks a question, the system retrieves relevant chunks and uses them to produce a grounded answer with source information. Questions outside the campus-life corpus are rejected when their retrieval distance is above the relevance cutoff.
 
-     Milestone 5. -->
 
 ## Chunking Strategy
 
-**Chunk size:**
-**Overlap:**
+**Chunk size:** Up to 500 characters when combining consecutive paragraphs
+**Overlap:** None
 
-<!-- What about YOUR documents made you pick these numbers? Short posts and
-     long sectioned guides don't want the same chunking, and "800 seemed
-     reasonable" earns nothing. Point at something you noticed when you read
-     the documents in Milestone 1.
+The original starter used a fixed-size fallback splitter with an 800-character chunk size and 120-character overlap. The starter baseline produced 26 chunks from the `advice_threads` corpus.
 
-     If you changed your mind partway through, say so and say why. That's worth
-     more than pretending you got it right first time.
+For my `campus_life` corpus, I found that the documents were short and naturally organized into paragraphs. The corpus contained 88 documents and 271 paragraphs. The longest document was 549 characters and the longest paragraph was 373 characters. Because of this, fixed-size windows were unnecessary and could split related information awkwardly.
 
-     Milestone 3. -->
+I changed the chunker to group consecutive paragraphs together when the combined text stays within 500 characters. This keeps related information together while avoiding unnecessary splitting in the middle of a paragraph. The final custom chunker produced 90 chunks.
+
+
 
 ## Sample Chunks
 
-<!-- Five chunks, pasted as text. Label each one and name the file it came from
-     AND the function that produced it — the grader checks your code against
-     what you claim here.
+**Chunk 1** — source: `admin_add_drop_deadline.txt#0` — produced by: `chunker.py::split_documents`
 
-     `python app.py chunks -n 5` prints all three for you. Copy them straight
-     across.
+```text
+On the add/drop deadline
 
-     Milestone 3. -->
-
-**Chunk 1** — source: `` — produced by: ``
-
-```
+You can add a course through the end of the second week. Dropping is a longer window — through the end of week six — but a drop after week two shows as a W on your transcript. Nothing anywhere on the registrar's site says this plainly, and students find out from each other.
 ```
 
-**Chunk 2** — source: `` — produced by: ``
+**Chunk 2** — source: `course_biol_160_exams.txt#0` — produced by: `chunker.py::split_documents`
 
-```
-```
+```text
+BIOL 160 Cell Biology — assessment
 
-**Chunk 3** — source: `` — produced by: ``
+Four unit tests and a cumulative final. Not curved.
 
-```
-```
-
-**Chunk 4** — source: `` — produced by: ``
-
-```
+The unit tests come fast, roughly every three weeks; falling behind once is very hard to recover from.
 ```
 
-**Chunk 5** — source: `` — produced by: ``
+**Chunk 3** — source: `course_math_220_exams.txt#0` — produced by: `chunker.py::split_documents`
 
+```text
+MATH 220 Linear Algebra — assessment
+
+Two midterms and a cumulative final. Curved to a b- median.
+
+The problem sets are the course; the lectures make sense afterwards rather than during.
 ```
+
+**Chunk 4** — source: `dining_the_ridgeway_cafe.txt#0` — produced by: `chunker.py::split_documents`
+
+```text
+The Ridgeway Café
+
+Second-year here. Wait times: 10 to 15 minutes at 12:30, none after 2:00. The thing worth going for is the only place on campus with real espresso. The thing to know is that seating is tight; about 40 seats for a building of 900.
+
+Hours are 7:00am to 4:00pm weekdays only. Costs declining balance only, no meal swipes.
+```
+
+**Chunk 5** — source: `housing_morrow_house.txt#0` — produced by: `chunker.py::split_documents`
+
+```text
+Morrow House — what it's actually like
+
+Just finished a year in this building. Built 1954, partially renovated 2008. Rooms are singles and doubles, hall bathrooms.
+
+The good: cheapest housing tier by about $900 a year, and the singles are real singles.
+
+The bad: known damp problem on the ground floor; two rooms were taken offline in 2024.
+
+Laundry costs $1.50 wash, $1.25 dry, coin or card. On noise: loud until about 1am on weekends, no enforced quiet hours.
 ```
 
 Starter baseline: 26 chunks total
-Source: thread_bike_commute.txt#0
-Produced by: chunker.py::fallback_split
+Source: `thread_bike_commute.txt#0`
+Produced by: `chunker.py::fallback_split`
 
-Custom campus_life chunking:
-90 chunks total
+Custom `campus_life` chunking: 90 chunks total
 Strategy: paragraph-aware grouping with a 500-character context limit
-Produced by: chunker.py::split_documents
+Produced by: `chunker.py::split_documents`
 
 ## Sample Answer
 
-<!-- One complete question and answer, pasted as text, with the source line
-     visible. Milestone 4. -->
+**Question:** How much time per week should students expect to spend on CS 210?
 
-**Question:**
+**Answer:** Students should expect to spend about 8–10 hours per week outside of class on CS 210. The course materials also note that this workload includes reading, problem sets, and other coursework.
 
-**Answer:**
+**Source:** `course_cs_210_workload.txt` and `course_cs_210.txt`
 
-```
-```
+**My relevance cutoff:** `0.6`
 
-**My relevance cutoff:**
+I kept the starter relevance cutoff of 0.6. My evaluation showed a clear separation between questions covered by the `campus_life` corpus and questions outside it. The five in-corpus questions had best distances between 0.158 and 0.300, while the five out-of-corpus questions had distances between 0.825 and 0.934. This means the cutoff of 0.6 falls between the two groups.
 
-<!-- The number you set in config.py, and how you got there.
+| Question                                                          | In corpus? | Best distance |
+| ----------------------------------------------------------------- | ---------- | ------------: |
+| How does the housing lottery work for rising sophomores?          | Yes        |         0.158 |
+| How much time per week should students expect to spend on CS 210? | Yes        |         0.258 |
+| What are the main assessments in CS 210?                          | Yes        |         0.300 |
+| What are the laundry costs at Innisfree Hall?                     | Yes        |         0.224 |
+| What advice is given about the CS 340 term project?               | Yes        |         0.278 |
+| What is the capital of Mongolia?                                  | No         |         0.825 |
+| What type of oil should I use in a diesel engine?                 | No         |         0.934 |
+| Who won the 1994 World Cup?                                       | No         |         0.886 |
+| What is the correct ibuprofen dosage?                             | No         |         0.844 |
+| How do I write a for loop in Rust?                                | No         |         0.896 |
 
-     You ran five questions your corpus covers and the five in OUT_OF_SCOPE
-     that it clearly doesn't, and wrote down the best distance for each. What
-     did those two groups look like? Where was the gap? Put the actual numbers
-     here — the table below wants all ten rows.
 
-     Milestone 4. -->
-
-| Question | In corpus? | Best distance |
-|---|---|---|
-|  |  |  |
 
 ## How I Used AI
 
@@ -154,13 +166,14 @@ Produced by: chunker.py::split_documents
 
      Milestone 1. -->
 
-| Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
-|---|---|---|---|---|---|
-| 1. Retrieved chunk contains the answer | 4 of 5 |  |  |  |  |
-| 2. Every answer names a source | 5 of 5 |  |  |  |  |
-| 3. Gate stops out-of-corpus questions | 4 of 5 |  |  |  |  |
-| 4. | | | | | |
-| 5. | | | | | |
+| Criterion                                    | Target |  Run 1 |  Run 2 |  Run 3 | Verdict |
+| -------------------------------------------- | ------ | -----: | -----: | -----: | ------- |
+| 1. Retrieved chunk contains the answer       | 4 of 5 | 5 of 5 | 5 of 5 | 5 of 5 | MET     |
+| 2. Every answer names a source               | 5 of 5 | 5 of 5 | 5 of 5 | 5 of 5 | MET     |
+| 3. Gate stops out-of-corpus questions        | 4 of 5 | 5 of 5 | 5 of 5 | 5 of 5 | MET     |
+| 4. Complete, understandable chunks           | 4 of 5 | 5 of 5 | 5 of 5 | 5 of 5 | MET     |
+| 5. Final answer identifies supporting source | 4 of 5 | 5 of 5 | 5 of 5 | 5 of 5 | MET     |
+
 
 <!-- Underneath, paste the REAL output for each criterion from one of your
      runs — the actual text your system produced, not a description of it.
@@ -177,13 +190,14 @@ Produced by: chunker.py::split_documents
 
      Milestone 2. -->
 
-| # | Criterion | Verdict | How I decided |
-|---|---|---|---|
-| 1 |  |  |  |
-| 2 |  |  |  |
-| 3 |  |  |  |
-| 4 |  |  |  |
-| 5 |  |  |  |
+| # | Criterion                                 | Verdict | How I decided                                                                                                             |
+| - | ----------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------- |
+| 1 | Retrieved chunks contain the answer       | MET     | All five test questions had a retrieved chunk containing the information needed to answer the question in all three runs. |
+| 2 | Every answer names a source               | MET     | Every generated answer identified at least one specific source document in all three runs.                                |
+| 3 | Gate stops out-of-corpus questions        | MET     | The relevance gate refused all five out-of-corpus questions, exceeding the target of 4 of 5.                              |
+| 4 | Complete, understandable chunks           | MET     | The five sampled chunks were understandable on their own and did not cut sentences or separate related paragraphs.        |
+| 5 | Final answer identifies supporting source | MET     | All five test answers identified one or more specific source documents supporting the answer in all three runs.           |
+
 
 ## Diagnoses
 
@@ -224,8 +238,9 @@ Produced by: chunker.py::split_documents
 | 1. Retrieved chunk contains the answer | 4 of 5 |  |  |  |  |
 | 2. Every answer names a source | 5 of 5 |  |  |  |  |
 | 3. Gate stops out-of-corpus questions | 4 of 5 |  |  |  |  |
-| 4. | | | | | |
-| 5. | | | | | |
+| 4. Complete, understandable chunks | 4 of 5 |  |  |  |  |
+| 5. Final answer identifies supporting source | 4 of 5 |  |  |  |  |
+
 
 **Did it help?**
 
