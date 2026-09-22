@@ -12,17 +12,17 @@ lives here, once.
 
 What this function does for you:
 
-  • Paces requests so you stay under the per-minute limit, and tells you when
+  â€¢ Paces requests so you stay under the per-minute limit, and tells you when
     it's waiting. A pause is the limiter doing its job, not a hang.
-  • Caches repeated prompts while you're building, so re-running the same
+  â€¢ Caches repeated prompts while you're building, so re-running the same
     question twenty times while you debug costs one call.
-  • Stops with a warning if a session goes through an unreasonable number of
+  â€¢ Stops with a warning if a session goes through an unreasonable number of
     calls, instead of silently draining your whole day's allowance.
-  • Retries when the service says you're going too fast.
-  • Counts your calls, and the tokens they used, so what a run cost is a
+  â€¢ Retries when the service says you're going too fast.
+  â€¢ Counts your calls, and the tokens they used, so what a run cost is a
     number you can see rather than one you estimate.
 
-⚠️ Caching is ON while you build and OFF during evaluation. Your unit 2
+âš ï¸ Caching is ON while you build and OFF during evaluation. Your unit 2
 testing needs three real answers to the same question, not one answer three
 times over.
 `run_eval.py` passes cache=False for you.
@@ -49,7 +49,7 @@ class QuotaGuard(Exception):
     """Raised when a session blows through its request budget."""
 
 
-# ─── Cache ───────────────────────────────────────────────────────────────────
+# â”€â”€â”€ Cache â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 
 def _cache_key(prompt: str, system: str | None) -> str:
@@ -83,7 +83,7 @@ def clear_cache() -> int:
     return len(files)
 
 
-# ─── Pacing and guards ───────────────────────────────────────────────────────
+# â”€â”€â”€ Pacing and guards â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 
 def _wait_for_slot() -> None:
@@ -118,7 +118,7 @@ def _check_budget() -> None:
         f"That usually means a loop is running away rather than that you've "
         f"done {_session_calls} requests' worth of real work.\n"
         f"Stop the program and look for the loop. If you really do need more, "
-        f"raise the number in config.py — but look first."
+        f"raise the number in config.py â€” but look first."
     )
 
 
@@ -127,7 +127,7 @@ def _record_tokens(response) -> None:
 
     These come off the response itself, which is the point. When you work out
     what a run costs, a number read back from the service is a measurement and
-    a number multiplied out of the pricing page is a guess — they disagree more
+    a number multiplied out of the pricing page is a guess â€” they disagree more
     often than you'd think, and only one of them is evidence.
 
     Deliberately forgiving: `usage_metadata` is missing on some responses and
@@ -180,7 +180,7 @@ def token_counts() -> dict[str, int]:
     }
 
 
-# ─── The call ────────────────────────────────────────────────────────────────
+# â”€â”€â”€ The call â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 
 def _get_client():
@@ -207,7 +207,7 @@ def generate(prompt: str, system: str | None = None, cache: bool = True) -> str:
         prompt: what you're asking.
         system: an optional instruction about how to behave.
         cache:  reuse an identical earlier answer if there is one. Leave this
-                True while building. Pass False when you're evaluating — three
+                True while building. Pass False when you're evaluating â€” three
                 runs of the same question have to be three real answers.
 
     Every call in this course goes through here. If you need to change how the
@@ -246,7 +246,7 @@ def generate(prompt: str, system: str | None = None, cache: bool = True) -> str:
                 _cache_write(key, text)
             return text
 
-        except Exception as exc:  # noqa: BLE001 — surfaced below
+        except Exception as exc:  # noqa: BLE001 â€” surfaced below
             last_error = exc
             message = str(exc).lower()
             rate_limited = (
@@ -267,18 +267,18 @@ def generate(prompt: str, system: str | None = None, cache: bool = True) -> str:
 
     raise RuntimeError(
         f"Still rate limited after {config.MAX_RETRIES} attempts. Wait a "
-        f"minute and try again — your key is fine.\nLast error: {last_error}"
+        f"minute and try again â€” your key is fine.\nLast error: {last_error}"
     )
 
 
-# ─── The grounded answer ─────────────────────────────────────────────────────
+# â”€â”€â”€ The grounded answer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 GROUNDING_INSTRUCTION = """You answer questions using only the documents provided to you.
 
 Rules:
 - Use only the information in the documents below. Do not use anything you know from elsewhere.
 - If the documents don't cover the question, say you don't have enough information. Do not guess.
-- Name the document your answer came from, using the filename given in each excerpt.
+- Always put the supporting filename on a separate line in exactly this format: `Source: filename.txt`. Do not put the source only in parentheses.
 - Be brief. Two or three sentences is usually enough."""
 
 
@@ -287,7 +287,7 @@ def build_prompt(question: str, results) -> str:
     Assemble the grounded prompt out of retrieved chunks.
 
     Split out from `answer_from_chunks` so the prompt can be looked at without
-    being sent — `python app.py ask "..." --show-prompt` prints exactly what
+    being sent â€” `python app.py ask "..." --show-prompt` prints exactly what
     this returns. Reading it once is the fastest way to see that retrieval,
     not the model, decides what an answer can possibly be based on.
     """
@@ -306,7 +306,7 @@ def answer_from_chunks(question: str, results, cache: bool = True) -> str:
     Build a grounded prompt out of retrieved chunks and send it.
 
     This is the second layer of grounding. The relevance gate in gate.py is the
-    first — it has already decided these chunks are close enough to be worth
+    first â€” it has already decided these chunks are close enough to be worth
     answering from.
     """
     prompt = build_prompt(question, results)

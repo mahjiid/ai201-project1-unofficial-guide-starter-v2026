@@ -1,8 +1,8 @@
 # The Unofficial Guide
 
-**Abdulrasheed Abdulmajeed — Corpus: campus_life**
+**Abdulrasheed Abdulmajeed â€” Corpus: campus_life**
 
-> **This file is your submission.** Fill it in as you go — most sections get
+> **This file is your submission.** Fill it in as you go â€” most sections get
 > written during the milestone that produces them, not at the end.
 >
 > How the starter works, and every command you'll need, is in `RUNNING.md`.
@@ -12,7 +12,7 @@
 > full credit; a picture of the same table gets none.
 >
 > Delete these instruction blocks as you replace them. The `<!-- -->` comments
-> are notes to you and don't show up when the page renders — you can leave them
+> are notes to you and don't show up when the page renders â€” you can leave them
 > or remove them.
 
 ---
@@ -39,48 +39,48 @@ I changed the chunker to group consecutive paragraphs together when the combined
 
 ## Sample Chunks
 
-**Chunk 1** — source: `admin_add_drop_deadline.txt#0` — produced by: `chunker.py::split_documents`
+**Chunk 1** â€” source: `admin_add_drop_deadline.txt#0` â€” produced by: `chunker.py::split_documents`
 
 ```text
 On the add/drop deadline
 
-You can add a course through the end of the second week. Dropping is a longer window — through the end of week six — but a drop after week two shows as a W on your transcript. Nothing anywhere on the registrar's site says this plainly, and students find out from each other.
+You can add a course through the end of the second week. Dropping is a longer window â€” through the end of week six â€” but a drop after week two shows as a W on your transcript. Nothing anywhere on the registrar's site says this plainly, and students find out from each other.
 ```
 
-**Chunk 2** — source: `course_biol_160_exams.txt#0` — produced by: `chunker.py::split_documents`
+**Chunk 2** â€” source: `course_biol_160_exams.txt#0` â€” produced by: `chunker.py::split_documents`
 
 ```text
-BIOL 160 Cell Biology — assessment
+BIOL 160 Cell Biology â€” assessment
 
 Four unit tests and a cumulative final. Not curved.
 
 The unit tests come fast, roughly every three weeks; falling behind once is very hard to recover from.
 ```
 
-**Chunk 3** — source: `course_math_220_exams.txt#0` — produced by: `chunker.py::split_documents`
+**Chunk 3** â€” source: `course_math_220_exams.txt#0` â€” produced by: `chunker.py::split_documents`
 
 ```text
-MATH 220 Linear Algebra — assessment
+MATH 220 Linear Algebra â€” assessment
 
 Two midterms and a cumulative final. Curved to a b- median.
 
 The problem sets are the course; the lectures make sense afterwards rather than during.
 ```
 
-**Chunk 4** — source: `dining_the_ridgeway_cafe.txt#0` — produced by: `chunker.py::split_documents`
+**Chunk 4** â€” source: `dining_the_ridgeway_cafe.txt#0` â€” produced by: `chunker.py::split_documents`
 
 ```text
-The Ridgeway Café
+The Ridgeway CafÃ©
 
 Second-year here. Wait times: 10 to 15 minutes at 12:30, none after 2:00. The thing worth going for is the only place on campus with real espresso. The thing to know is that seating is tight; about 40 seats for a building of 900.
 
 Hours are 7:00am to 4:00pm weekdays only. Costs declining balance only, no meal swipes.
 ```
 
-**Chunk 5** — source: `housing_morrow_house.txt#0` — produced by: `chunker.py::split_documents`
+**Chunk 5** â€” source: `housing_morrow_house.txt#0` â€” produced by: `chunker.py::split_documents`
 
 ```text
-Morrow House — what it's actually like
+Morrow House â€” what it's actually like
 
 Just finished a year in this building. Built 1954, partially renovated 2008. Rooms are singles and doubles, hall bathrooms.
 
@@ -103,7 +103,7 @@ Produced by: `chunker.py::split_documents`
 
 **Question:** How much time per week should students expect to spend on CS 210?
 
-**Answer:** Students should expect to spend about 8–10 hours per week outside of class on CS 210. The course materials also note that this workload includes reading, problem sets, and other coursework.
+**Answer:** Students should expect to spend about 8â€“10 hours per week outside of class on CS 210. The course materials also note that this workload includes reading, problem sets, and other coursework.
 
 **Source:** `course_cs_210_workload.txt` and `course_cs_210.txt`
 
@@ -141,20 +141,20 @@ I kept the starter relevance cutoff of 0.6. My evaluation showed a clear separat
 
 **2.**
 
-<!-- ── Stretch features ─────────────────────────────────────────────────────
+<!-- â”€â”€ Stretch features â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
      Doing one? Say so here BEFORE you start. A feature this README never
      claims earns nothing.
-     ───────────────────────────────────────────────────────────────────────── -->
+     â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 
 ---
 
 # Unit 2
 
 <!-- These sections get ADDED to what's already above. Don't delete or rewrite
-     unit 1 — the point is that someone can see what you said before you knew
+     unit 1 â€” the point is that someone can see what you said before you knew
      how it went. -->
 
-## Run Log — Before
+## Run Log â€” Before
 
 <!-- Your five criteria, three runs each. `python run_eval.py --label before`
      runs the questions, puts the OUT_OF_SCOPE ones through the gate, and
@@ -176,13 +176,13 @@ I kept the starter relevance cutoff of 0.6. My evaluation showed a clear separat
 
 
 <!-- Underneath, paste the REAL output for each criterion from one of your
-     runs — the actual text your system produced, not a description of it.
+     runs â€” the actual text your system produced, not a description of it.
      Name the file and function that produced it. -->
 
 ## Verdicts
 
 <!-- MET or MISSED for each of the five, against the target you wrote last
-     unit — not a new one. Plus a sentence on how you decided. That sentence
+     unit â€” not a new one. Plus a sentence on how you decided. That sentence
      matters most where it was close.
 
      If your target said 4 of 5 and your runs came out 4, 3, 4, that's a MISS.
@@ -198,72 +198,34 @@ I kept the starter relevance cutoff of 0.6. My evaluation showed a clear separat
 | 4 | Complete, understandable chunks           | MET     | The five sampled chunks were understandable on their own and did not cut sentences or separate related paragraphs.        |
 | 5 | Final answer identifies supporting source | MET     | All five test answers identified one or more specific source documents supporting the answer in all three runs.           |
 
-
 ## Diagnoses
 
-<!-- For each miss: which stage caused it, and how. The stage alone isn't
-     enough — you need the mechanism.
-
-     Not a diagnosis: "Question 3 didn't work."
-     A diagnosis:     "Question 3 asks about laundry costs. The answer is in
-                       one sentence that got split across two chunks, so
-                       neither chunk on its own contains it."
-
-     The five stages: loading → chunking → embedding → retrieval → generation.
-
-     Look for a pattern. If three misses all ask about numbers, that's one
-     problem, not three.
-
-     Missed nothing? Say so, then say honestly whether your targets were set
-     low, and which one you'd tighten and to what.
-
-     Milestone 3. -->
+No acceptance criterion was missed in the Before runs. All five criteria met their targets across all three runs. The main quality issue I found was consistency in source attribution during generation: the housing-lottery answer in one Before run put the source in parentheses instead of using the same dedicated `Source:` format used by other answers. This came from the generation stage, where the grounding instruction required the model to name the source but did not require a specific output format.
 
 ## The Improvement
 
-**What I changed:**
+**What I changed:** I updated `generate.py` so the grounding instruction requires the supporting filename to appear on a separate line in the exact format `Source: filename.txt` and tells the model not to put the source only in parentheses.
 
-**Why I picked it:**
+**Why I picked it:** The Before run already met the source-related acceptance criteria, but its source formatting was inconsistent. I chose a small generation-stage improvement that makes the source attribution easier to identify and verify without changing retrieval or chunking.
 
-<!-- Connect it to a specific diagnosis above in one sentence. If you can't,
-     you picked a fix because it sounded impressive. -->
-
-### Run Log — After
-
-<!-- Same format, same five criteria, three runs each.
-     `python run_eval.py --label after` -->
+### Run Log - After
 
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
-|---|---|---|---|---|---|
-| 1. Retrieved chunk contains the answer | 4 of 5 |  |  |  |  |
-| 2. Every answer names a source | 5 of 5 |  |  |  |  |
-| 3. Gate stops out-of-corpus questions | 4 of 5 |  |  |  |  |
-| 4. Complete, understandable chunks | 4 of 5 |  |  |  |  |
-| 5. Final answer identifies supporting source | 4 of 5 |  |  |  |  |
-
+|---|---|---:|---:|---:|---|
+| 1. Retrieved chunk contains the answer | 4 of 5 | 5 of 5 | 5 of 5 | 5 of 5 | MET |
+| 2. Every answer names a source | 5 of 5 | 5 of 5 | 5 of 5 | 5 of 5 | MET |
+| 3. Gate stops out-of-corpus questions | 4 of 5 | 5 of 5 | 5 of 5 | 5 of 5 | MET |
+| 4. Complete, understandable chunks | 4 of 5 | 5 of 5 | 5 of 5 | 5 of 5 | MET |
+| 5. Final answer identifies supporting source | 4 of 5 | 5 of 5 | 5 of 5 | 5 of 5 | MET |
 
 **Did it help?**
 
-<!-- Say plainly whether it did, and how you know. If it made things worse,
-     say that — a change that backfired, honestly reported, earns full credit
-     and is more interesting than one that worked. What matters is that you can
-     tell.
-
-     Milestone 4. -->
+Yes, for the specific consistency issue I targeted. In the After run, all 15 generated answers used a separate `Source: filename.txt` line, including all three housing-lottery answers. The acceptance-criterion scores did not increase because they were already 5 of 5 before the change. Retrieval distances and the out-of-corpus gate also remained unchanged, which is expected because the change affected generation instructions rather than retrieval or gating.
 
 ## What's Still Broken
 
-<!-- For each criterion still missed after your fix: what you'd do about it,
-     and why you stopped where you did.
-
-     "I ran out of time" is fine if it's true. Pretending nothing is left is
-     not.
-
-     Milestone 5. -->
+No acceptance criterion is still missed. One remaining quality issue is that the housing-lottery answer can still be awkwardly worded, for example saying that the lottery is "not random" while explaining that a number is drawn at random. I would address that with a clearer generation instruction or by improving the underlying source wording, but I did not change it in this unit because the answer still contained the required information and the goal of this experiment was source-attribution consistency.
 
 ## What I'd Do Differently
 
-<!-- Knowing what you know now — which of your five criteria would you write
-     differently, and why?
-
-     Milestone 5. -->
+I would tighten Criterion 3 after seeing the evaluation results. The current target is 4 of 5, but the measured best distances showed a wide separation: the in-corpus questions ranged from 0.158 to 0.300, while the out-of-corpus questions ranged from 0.825 to 0.934. Based on this evidence, I would consider a stricter gate target such as 5 of 5 and test whether a higher relevance cutoff can reject unsupported questions without rejecting the in-corpus questions.
