@@ -23,9 +23,7 @@ For at least 4 of my 5 test questions, the retrieved chunks include one that
 contains the answer.
 
 **Why this target:**
-<!-- e.g. "One of my questions is about a topic only two documents mention, so
-     I expect that one to be hard." -->
-
+My five test questions cover different parts of the campus-life corpus, including housing and multiple courses. I chose 4 of 5 because most questions should have a directly relevant chunk, while allowing one question to be difficult because information can be distributed across documents.
 ---
 
 ## 2. Every answer names a source
@@ -33,9 +31,7 @@ contains the answer.
 Every answer the system produces names at least one source document.
 
 **Why this target:**
-<!-- Why all five and not four? What about your setup makes that achievable —
-     or what would have to go wrong for it not to be? -->
-
+The system is designed to answer questions from retrieved campus-life documents, and each retrieved chunk keeps its source filename. I chose 5 of 5 because the source information is already available in the pipeline, so every generated answer should be traceable to the material used to answer the question.
 ---
 
 ## 3. The relevance gate stops out-of-corpus questions
@@ -50,9 +46,7 @@ in at least 4 of 5 tries.
      just keep five of them, or the "4 of 5" above has nothing to be 4 of. -->
 
 **Why this target:**
-<!-- What did your distances look like when you set the cutoff in Milestone 4?
-     Was there a clean gap, or did the two groups overlap? -->
-
+I chose 4 of 5 because the relevance gate should reject questions that are clearly outside the campus-life corpus, but semantic similarity can sometimes produce a relatively small distance even when the corpus does not contain the answer. This target requires the gate to reject most unsupported questions while allowing one possible edge case.
 ---
 
 ## 4. Something about your chunks
