@@ -137,10 +137,9 @@ I kept the starter relevance cutoff of 0.6. My evaluation showed a clear separat
 
      Milestone 5. -->
 
-**1.**
+**1.** I asked ChatGPT to help me choose and implement a chunking strategy for my `campus_life` corpus. The initial paragraph-only approach produced 183 chunks and could separate related paragraphs, including information about the CS 340 term project. I inspected the corpus and changed the implementation myself so consecutive paragraphs are grouped when they fit within a 500-character limit, producing 90 chunks.
 
-**2.**
-
+**2.** I asked ChatGPT to help me diagnose an inconsistency in the generated source attribution after the Before evaluation. One housing-lottery answer put the source in parentheses while other answers used a separate source line. I changed `generate.py` myself so the grounding instruction requires the supporting filename on a separate line in the format `Source: filename.txt`, then ran the formal After evaluation to verify the change.
 <!-- â”€â”€ Stretch features â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
      Doing one? Say so here BEFORE you start. A feature this README never
      claims earns nothing.
@@ -197,6 +196,67 @@ I kept the starter relevance cutoff of 0.6. My evaluation showed a clear separat
 | 3 | Gate stops out-of-corpus questions        | MET     | The relevance gate refused all five out-of-corpus questions, exceeding the target of 4 of 5.                              |
 | 4 | Complete, understandable chunks           | MET     | The five sampled chunks were understandable on their own and did not cut sentences or separate related paragraphs.        |
 | 5 | Final answer identifies supporting source | MET     | All five test answers identified one or more specific source documents supporting the answer in all three runs.           |
+
+### Before Evidence
+
+Produced by `run_eval.py::main`, using retrieval from `store.py::search` and chunks from `chunker.py::split_documents`. The full run is recorded in `results/run_2026-09-22_1340_before.md`.
+**Criterion 1 — retrieved chunks contain the answer**
+
+Actual output from the housing-lottery question:
+
+```text
+For rising sophomores, the housing lottery involves getting a number drawn at random (admin_housing_lottery.txt).
+```
+
+**Criterion 2 — every answer names a source**
+
+Actual output from the CS 210 assessments question:
+
+```text
+The main assessments in CS 210 are two midterms and a final.
+
+Sources: `course_cs_210_exams.txt` and `course_cs_210.txt`
+```
+
+**Criterion 3 — gate stops out-of-corpus questions**
+
+Actual output from `run_eval.py::check_out_of_scope`:
+
+```text
+What is the capital of Mongolia? | 0.825 | refused
+How do I change the oil in a diesel engine? | 0.934 | refused
+Who won the 1994 World Cup? | 0.886 | refused
+What is the recommended dosage of ibuprofen for a headache? | 0.844 | refused
+How do I write a for loop in Rust? | 0.896 | refused
+```
+
+The gate refused 5 of 5 out-of-corpus questions.
+
+**Criterion 4 — complete, understandable chunks**
+
+One sampled chunk from the `campus_life` corpus was:
+
+```text
+CS 340 Databases - assessment
+
+One midterm and a final, both open-book. Lightly curved, usually two or three points.
+
+Start the term project in week three, not week eight; everyone learns this the hard way.
+```
+
+This chunk was produced by `chunker.py::split_documents`. The five sampled chunks were manually inspected and each formed an understandable piece of information without cutting a sentence or separating related paragraphs.
+
+**Criterion 5 — final answer identifies the supporting source**
+
+Actual output from the CS 340 term-project question:
+
+```text
+The advice given is to start the term project in week three, rather than week eight.
+
+Sources: `course_cs_340_exams.txt`, `course_cs_340.txt`
+```
+
+The complete raw output is recorded in `results/run_2026-09-22_1340_before.md`.
 
 ## Diagnoses
 
